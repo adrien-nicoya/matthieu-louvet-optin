@@ -110,8 +110,31 @@ def wording(html):
     assert 'événement' not in low and 'bootcamp' not in low and 'sommet' not in low
     return html
 
+# Meta Pixel (fourni par Adrien) : PageView sur les pages d'optin, Contact sur la page merci
+def meta_pixel(event):
+    return """<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1296900680676100');
+fbq('track', '%s');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1296900680676100&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+""" % event
+
 for k, v in pages.items():
     v = wording(v)
+    assert v.count('</head>') == 1
+    v = v.replace('</head>', meta_pixel('Contact' if k == 'merci' else 'PageView') + '</head>')
     os.makedirs(os.path.join(OUT, k), exist_ok=True)
     open(os.path.join(OUT, k, 'index.html'), 'w', encoding='utf-8').write(v + '\n')
     print(k, len(v))
