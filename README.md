@@ -16,3 +16,5 @@ Payload envoyé à Make : `prenom, email, tel, utm_*, page_url, variant (A-D), c
 Après inscription : redirection `/merci?utm_…&variant=X`.
 
 `scripts/build.py` : regénère a/b/c/d/merci depuis les HTML sources si besoin.
+
+PostHog (projet « Optin S’investir », id 322007) : snippet dans le `<head>` de chaque page, propriétés `client: 'sinvestir'`, `page`, `variant`. Événement de conversion : `inscription` (envoyé avant la redirection vers /merci).
