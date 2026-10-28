@@ -59,6 +59,11 @@ _n = len(re.findall(r'<img src="data:image/webp;base64,[A-Za-z0-9+/=]+" alt="Mat
 assert _n == 1, _n
 c = re.sub(r'<img src="data:image/webp;base64,[A-Za-z0-9+/=]+" alt="Matthieu Louvet" ',
            lambda m: '<img src="data:image/webp;base64,%s" alt="Matthieu Louvet" ' % _portrait, c)
+# C/D : même portrait dans la section « Qui suis-je ? » (à la place de la photo de conférence)
+_bio = base64.b64encode(open(os.path.join(os.path.dirname(__file__), '..', 'assets', 'matthieu-bio.webp'), 'rb').read()).decode()
+_pat = r'<img src="data:image/webp;base64,[A-Za-z0-9+/=]+" alt="Matthieu Louvet en conférence devant un public" '
+assert len(re.findall(_pat, c)) == 1
+c = re.sub(_pat, lambda m: '<img src="data:image/webp;base64,%s" alt="Matthieu Louvet, fondateur de S’investir" ' % _bio, c)
 m = inner(os.path.join(SRC, 'Merci__1_.html'))
 m = m.replace('</title>', '</title>\n<script>window.AB_VARIANT = new URLSearchParams(location.search).get(\'variant\');</script>\n' + posthog('merci-live-novembre-2026', False), 1)
 # Vidéo hébergée sur Vercel (media/), 1080p, lecteur maison : lecture / pause / revoir.
