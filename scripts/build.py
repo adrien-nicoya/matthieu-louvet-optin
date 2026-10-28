@@ -55,9 +55,9 @@ c = inner(os.path.join(SRC, 'LP_2__1_.html'))
 m = inner(os.path.join(SRC, 'Merci__1_.html'))
 m = m.replace('</title>', '</title>\n<script>window.AB_VARIANT = new URLSearchParams(location.search).get(\'variant\');</script>\n' + posthog('merci-live-novembre-2026', False), 1)
 # Vidéo hébergée sur Vercel (media/), 1080p, lecteur maison : lecture / pause / revoir.
-VIDEO = """<!-- VIDÉO : fichier media/merci-1080p.mp4 (+ media/merci-poster.jpg) -->
+VIDEO = """<!-- VIDÉO : fichier media/merci-v2-1080p.mp4 (+ media/merci-v2-poster.jpg) -->
     <div id="video-merci" style="position:relative;width:100%;max-width:760px;aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:#000;box-shadow:0 24px 50px rgba(11,26,53,0.25)">
-      <video id="vm-video" src="/media/merci-1080p.mp4" poster="/media/merci-poster.jpg" preload="metadata" playsinline disablepictureinpicture controlslist="nodownload noplaybackrate noremoteplayback" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000"></video>
+      <video id="vm-video" src="/media/merci-v2-1080p.mp4" poster="/media/merci-v2-poster.jpg" preload="metadata" playsinline disablepictureinpicture controlslist="nodownload noplaybackrate noremoteplayback" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000"></video>
       <div id="vm-cover" data-state="start" role="button" tabindex="0" aria-label="Lire la vidéo" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;cursor:pointer;background:linear-gradient(180deg,rgba(5,11,22,0),rgba(5,11,22,0.35))">
         <span class="vm-play" aria-hidden="true" style="width:84px;height:84px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(0,0,0,0.4)"><span style="width:0;height:0;border-left:26px solid var(--navy);border-top:16px solid transparent;border-bottom:16px solid transparent;margin-left:7px"></span></span>
         <span class="vm-replay" style="display:none;align-items:center;gap:10px;padding:14px 26px;border-radius:999px;font-weight:700;font-size:16px;line-height:1;color:var(--navy);background:linear-gradient(135deg,var(--gold),var(--gold2))">↻ Revoir la vidéo</span>
