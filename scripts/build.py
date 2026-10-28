@@ -94,6 +94,21 @@ m = m[:start] + VIDEO + m[end:]
 
 pages = {'a': variant(a, 'A', False, False), 'b': variant(a, 'B', True, False),
          'c': variant(c, 'C', False, True), 'd': variant(c, 'D', True, True), 'merci': m}
+
+# Page Google Ads (/ga) : version B + astérisque sur la headline + mentions légales sous le logo du footer
+GA_MENTION = ('<p style="margin:0;font-size:12.5px;line-height:1.65;max-width:720px">* Les résultats mentionnés sur cette page sont donnés à titre indicatif '
+              'et peuvent être vérifiés sur simple demande. Ils ne constituent en aucun cas une promesse de gain. Les résultats obtenus sont souvent '
+              'proportionnels aux efforts fournis et aux risques encourus.<br>Ce service est proposé par la société MATTHIEU LOUVET – S’INVESTIR, '
+              'en partenariat avec la société Join Venture (Leads.fr), immatriculée à l’ORIAS sous le numéro 20005729 en qualité d’intermédiaire '
+              'en opérations de banque et en services de paiement (IOBSP) dans la catégorie mandataire d’intermédiaire.</p>')
+def google_ads(html):
+    html = variant(html, 'GA', True, False)
+    assert html.count('les 10 prochaines années.</span></h1>') == 1
+    html = html.replace('les 10 prochaines années.</span></h1>', 'les 10 prochaines années.*</span></h1>')
+    j = html.rindex('<footer')
+    k = html.index('alt="S’investir"></a>', j) + len('alt="S’investir"></a>')
+    return html[:k] + '\n      ' + GA_MENTION + html[k:]
+pages['ga'] = google_ads(a)
 # Vocabulaire : on parle de « challenge » partout
 WORDING = [('<title>Last version</title>', '<title>Challenge S’investir · 8 au 10 novembre 2026</title>'),
            ('<title>LP 2</title>', '<title>Challenge S’investir · 8 au 10 novembre 2026</title>'),
