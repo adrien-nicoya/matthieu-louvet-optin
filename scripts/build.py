@@ -52,6 +52,13 @@ def variant(html, letter, consent, dark):
 
 a = inner(os.path.join(SRC, 'Last_version__1_.html'))
 c = inner(os.path.join(SRC, 'LP_2__1_.html'))
+# C/D : portrait studio de Matthieu dans la carte intervenant (assets/matthieu-portrait.webp)
+import base64
+_portrait = base64.b64encode(open(os.path.join(os.path.dirname(__file__), '..', 'assets', 'matthieu-portrait.webp'), 'rb').read()).decode()
+_n = len(re.findall(r'<img src="data:image/webp;base64,[A-Za-z0-9+/=]+" alt="Matthieu Louvet" ', c))
+assert _n == 1, _n
+c = re.sub(r'<img src="data:image/webp;base64,[A-Za-z0-9+/=]+" alt="Matthieu Louvet" ',
+           lambda m: '<img src="data:image/webp;base64,%s" alt="Matthieu Louvet" ' % _portrait, c)
 m = inner(os.path.join(SRC, 'Merci__1_.html'))
 m = m.replace('</title>', '</title>\n<script>window.AB_VARIANT = new URLSearchParams(location.search).get(\'variant\');</script>\n' + posthog('merci-live-novembre-2026', False), 1)
 # Vidéo hébergée sur Vercel (media/), 1080p, lecteur maison : lecture / pause / revoir.
