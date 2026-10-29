@@ -168,8 +168,15 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 """ + inits + "fbq('track', '%s');\n</script>\n" % event + noscript + "<!-- End Meta Pixel Code -->\n")
 
+# Logo S'investir réduit (en-tête 72 → 52 px, footer 60/56 → 44 px)
+def logo_size(html):
+    assert '.logo img{display:block;height:72px;width:auto}' in html
+    html = html.replace('.logo img{display:block;height:72px;width:auto}', '.logo img{display:block;height:52px;width:auto}')
+    return re.sub(r'footer \.logo img\{height:\d+px\}', 'footer .logo img{height:44px}', html)
+
 for k, v in pages.items():
     v = wording(v)
+    v = logo_size(v)
     assert v.count('</head>') == 1
     v = v.replace('</head>', meta_pixel(k) + '</head>')
     os.makedirs(os.path.join(OUT, k), exist_ok=True)
