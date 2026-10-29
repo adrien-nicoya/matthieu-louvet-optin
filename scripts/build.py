@@ -27,7 +27,7 @@ def checkbox(dark):
     color = '#AEB7C9' if dark else 'var(--muted)'
     return ('<label class="check" style="margin-top:2px;color:%s"><input type="checkbox" name="optin_communications" value="1" required>'
             '<span>J’accepte que mes données personnelles soient utilisées pour gérer mon inscription et me transmettre les informations et rappels liés à cet événement '
-            '(emails, SMS et messages vocaux préenregistrés). Pour en savoir plus, consultez la '
+            '(emails, SMS et messages vocaux préenregistrés), ainsi que pour recevoir de futures communications commerciales. Pour en savoir plus, consultez la '
             '<a href="https://sinvestir.fr/politique-de-confidentialite/" target="_blank" rel="noopener" style="color:inherit">politique de confidentialité</a>.</span></label>') % color
 
 CHECK_CSS = ('.check{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.5;text-align:left;cursor:pointer}'
