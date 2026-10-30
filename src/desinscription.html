@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Désinscription confirmée · S’investir</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0B1A35;--navy2:#050B16;--gold:#E2C04F;--gold2:#F5E199;--line:#E3E6EE}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--navy2);font-family:"Poppins",-apple-system,sans-serif;color:#FFFFFF;-webkit-font-smoothing:antialiased;color-scheme:dark}
+a{color:inherit}
+a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+main{position:relative;overflow:hidden;min-height:calc(100vh - 220px);display:flex;align-items:center;justify-content:center;padding:64px 16px;background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(58,111,216,0.22),rgba(58,111,216,0) 70%),linear-gradient(180deg,var(--navy),var(--navy2))}
+.portrait{position:absolute;left:0;bottom:0;height:88%;max-height:760px;width:auto;filter:grayscale(1) brightness(0.7);opacity:0.55;-webkit-mask-image:radial-gradient(ellipse 60% 75% at 45% 65%,#000 45%,transparent 100%);mask-image:radial-gradient(ellipse 60% 75% at 45% 65%,#000 45%,transparent 100%);pointer-events:none}
+.card{position:relative;width:100%;max-width:720px;padding:56px clamp(24px,6vw,72px);border-radius:24px;text-align:center;background:linear-gradient(160deg,#16305A,var(--navy));border:1px solid rgba(226,192,79,0.35);box-shadow:0 30px 70px rgba(0,0,0,0.45)}
+.logo img{display:block;height:64px;width:auto;margin:0 auto 36px}
+.check{display:inline-flex;align-items:center;justify-content:center;width:56px;height:56px;margin-bottom:20px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);font-size:28px;font-weight:700;box-shadow:0 10px 26px rgba(226,192,79,0.3)}
+h1{margin:0 auto;max-width:560px;font-size:clamp(22px,3vw,30px);line-height:1.3;font-weight:700;text-wrap:balance}
+.sep{width:56px;height:2px;margin:28px auto;border:0;background:linear-gradient(90deg,var(--gold),var(--gold2))}
+p.lead{margin:0 auto;max-width:520px;font-size:17px;line-height:1.7;color:#D6DCE8}
+p.lead strong{color:var(--gold)}
+footer{background:#EEF0F3;color:#8A92A3;border-top:1px solid var(--line);padding:40px 16px}
+footer .in{max-width:1000px;margin:0 auto;display:flex;flex-direction:column;gap:18px;align-items:center;text-align:center}
+footer img{display:block;height:44px;width:auto}
+footer p{margin:0;font-size:12.5px;line-height:1.65;max-width:720px}
+footer nav a{color:#6B7387;text-decoration:none;font-size:14px}
+@media (max-width:1100px){.portrait{display:none}}
+</style>
+</head>
+<body>
+<main>
+  <img class="portrait" src="data:image/webp;base64,{{PORTRAIT}}" alt="" aria-hidden="true">
+  <section class="card">
+    <div class="logo"><img src="data:image/svg+xml;base64,{{LOGO}}" alt="S’investir"></div>
+    <div class="check" aria-hidden="true">✓</div>
+    <h1>Je vous confirme votre désabonnement à tous nos mails pour cette campagne.</h1>
+    <hr class="sep">
+    <p class="lead">Rassurez-vous, <strong>nous continuerons à vous envoyer nos newsletters habituelles</strong>.</p>
+  </section>
+</main>
+<footer>
+  <div class="in">
+    <img src="data:image/svg+xml;base64,{{LOGO}}" alt="S’investir">
+    <p>Ce site ne fait pas partie du site YouTube™, Google™, Facebook™, Google Inc. ou Facebook Inc. et n’est approuvé par aucun d’entre eux. Service proposé par S’investir.</p>
+    <nav><a href="https://sinvestir.fr/politique-de-confidentialite/" target="_blank" rel="noopener">Politique de confidentialité</a></nav>
+    <p>Copyright © 2026 S’investir. Tous droits réservés.</p>
+  </div>
+</footer>
+</body>
+</html>

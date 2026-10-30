@@ -184,3 +184,13 @@ for k, v in pages.items():
     os.makedirs(os.path.join(OUT, k), exist_ok=True)
     open(os.path.join(OUT, k, 'index.html'), 'w', encoding='utf-8').write(v + '\n')
     print(k, len(v))
+
+# Page de désinscription (/desinscription) : src/desinscription.html + logo + portrait
+_logo = re.search(r'<a class="logo" href="#"><img src="data:image/svg\+xml;base64,([A-Za-z0-9+/=]+)"', a).group(1)
+_root = os.path.join(os.path.dirname(__file__), '..')
+_desabo = open(os.path.join(_root, 'src', 'desinscription.html'), encoding='utf-8').read()
+_desabo = _desabo.replace('{{LOGO}}', _logo).replace('{{PORTRAIT}}', base64.b64encode(open(os.path.join(_root, 'assets', 'matthieu-desinscription.webp'), 'rb').read()).decode())
+assert '{{' not in _desabo
+os.makedirs(os.path.join(OUT, 'desinscription'), exist_ok=True)
+open(os.path.join(OUT, 'desinscription', 'index.html'), 'w', encoding='utf-8').write(_desabo)
+print('desinscription', len(_desabo))
