@@ -48,5 +48,19 @@ footer nav a{color:#6B7387;text-decoration:none;font-size:14px}
     <p>Copyright © 2026 S’investir. Tous droits réservés.</p>
   </div>
 </footer>
+<script>
+// Désinscription campagne Challenge : envoie l'email (paramètre ?email=) au webhook Make → tag [CH] STOP dans ActiveCampaign
+(function(){
+  var email = (new URLSearchParams(location.search).get('email') || '').trim().replace(/ /g, '+');
+  if (!email || email.indexOf('@') < 1) return;
+  var url = 'https://hook.eu1.make.com/8jymw5nt2px3wr8isdlu5w6mqh7jpwmp';
+  var data = new URLSearchParams({ email: email, source: 'desinscription-challenge', page_url: location.href });
+  try {
+    if (!(navigator.sendBeacon && navigator.sendBeacon(url, data))) {
+      fetch(url, { method: 'POST', body: data, mode: 'no-cors', keepalive: true });
+    }
+  } catch (e) {}
+})();
+</script>
 </body>
 </html>
