@@ -137,26 +137,13 @@ def wording(html):
     assert 'événement' not in low and 'bootcamp' not in low and 'sommet' not in low
     return html
 
-# Meta Pixel (codes fournis par Adrien). Deux pixels :
-#  - 1296900680676100 : toutes les pages (A, B, C, D, GA) + merci
-#  - 2007406146543619 : pages A, B, C, D + merci (sauf inscrits venant de /ga)
-#  - 1064532439969125 : toutes les pages (A, B, C, D, GA) + merci
-# Un seul chargement de fbevents.js, init des pixels, puis un seul « track »
-# (deux snippets copiés tels quels feraient compter le PageView deux fois au 1er pixel).
-PIXEL_MAIN, PIXEL_OPTIN, PIXEL_3 = '1296900680676100', '2007406146543619', '1064532439969125'
+# Meta Pixel : un seul pixel utilisé (1064532439969125, depuis le 04/11/2026),
+# sur toutes les pages (A, B, C, D, GA : PageView ; merci : Contact).
+PIXEL = '1064532439969125'
 def meta_pixel(page):
     event = 'Contact' if page == 'merci' else 'PageView'
-    if page == 'merci':
-        inits = ("fbq('init', '%s');\n"
-                 "if (new URLSearchParams(location.search).get('variant') !== 'GA') fbq('init', '%s');\n"
-                 "fbq('init', '%s');\n") % (PIXEL_MAIN, PIXEL_OPTIN, PIXEL_3)
-        ids = [PIXEL_MAIN, PIXEL_OPTIN, PIXEL_3]
-    elif page == 'ga':
-        inits = "fbq('init', '%s');\nfbq('init', '%s');\n" % (PIXEL_MAIN, PIXEL_3)
-        ids = [PIXEL_MAIN, PIXEL_3]
-    else:
-        inits = "fbq('init', '%s');\nfbq('init', '%s');\nfbq('init', '%s');\n" % (PIXEL_MAIN, PIXEL_OPTIN, PIXEL_3)
-        ids = [PIXEL_MAIN, PIXEL_OPTIN, PIXEL_3]
+    inits = "fbq('init', '%s');\n" % PIXEL
+    ids = [PIXEL]
     noscript = ''.join('<noscript><img height="1" width="1" style="display:none"\nsrc="https://www.facebook.com/tr?id=%s&ev=PageView&noscript=1"\n/></noscript>\n' % i for i in ids)
     return ("""<!-- Meta Pixel Code -->
 <script>
