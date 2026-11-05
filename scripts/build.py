@@ -142,6 +142,8 @@ def wording(html):
 PIXEL = '1064532439969125'
 def meta_pixel(page):
     event = 'Contact' if page == 'merci' else 'PageView'
+    # page de confirmation d'appel : PageView + Schedule (rendez-vous pris)
+    extra = "fbq('track', 'Schedule');\n" if page == 'confirmation-appel-decouverte' else ''
     inits = "fbq('init', '%s');\n" % PIXEL
     ids = [PIXEL]
     noscript = ''.join('<noscript><img height="1" width="1" style="display:none"\nsrc="https://www.facebook.com/tr?id=%s&ev=PageView&noscript=1"\n/></noscript>\n' % i for i in ids)
@@ -155,7 +157,7 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-""" + inits + "fbq('track', '%s');\n</script>\n" % event + noscript + "<!-- End Meta Pixel Code -->\n")
+""" + inits + "fbq('track', '%s');\n" % event + extra + "</script>\n" + noscript + "<!-- End Meta Pixel Code -->\n")
 
 # Logo S'investir réduit (en-tête 72 → 52 px, footer 60/56 → 44 px)
 def logo_size(html):
