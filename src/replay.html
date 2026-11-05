@@ -50,7 +50,7 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(11,26,53,0.1
     <div style="max-width:960px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:22px;text-align:center">
       <span class="logo"><img src="data:image/svg+xml;base64,{{LOGO}}" alt="S’investir"></span>
       <h1 style="margin:0;font-weight:700;font-size:clamp(34px,5.5vw,60px);line-height:1.08;letter-spacing:-0.02em">Replay du <span style="color:var(--gold)" data-day-title>jour 1</span></h1>
-      <p style="margin:0;max-width:680px;font-size:clamp(17px,1.7vw,20px);line-height:1.55;color:#D6DCE8;text-wrap:balance" data-day-sub>Les règles d’or pour réussir en Bourse (avec Matthias Baccino)</p>
+      <p style="margin:0;max-width:680px;font-size:clamp(17px,1.7vw,20px);line-height:1.55;color:#D6DCE8;text-wrap:balance" data-day-sub>Bien investir en Bourse&nbsp;: les règles à respecter que personne ne vous a jamais expliquées</p>
       <span class="chip"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Challenge du dimanche 8 au mardi 10 novembre 2026</span>
 
       <!-- LECTEUR : rempli automatiquement depuis REPLAY_VIDEOS (en bas de page) -->
@@ -78,7 +78,7 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(11,26,53,0.1
           <div class="thumb"><img src="/media/replay-jour1.webp" alt="Replay du jour 1" loading="lazy"></div>
           <div style="flex:1;display:flex;flex-direction:column;gap:10px;padding:20px 22px 24px">
             <span style="font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--blue)">Dimanche 8 nov.</span>
-            <h3 style="margin:0;flex:1;font-weight:700;font-size:18px;line-height:1.35">Les règles d’or pour réussir en Bourse (avec Matthias Baccino)</h3>
+            <h3 style="margin:0;flex:1;font-weight:700;font-size:18px;line-height:1.35">Bien investir en Bourse&nbsp;: les règles à respecter que personne ne vous a jamais expliquées</h3>
             <p class="soon" hidden></p>
           </div>
         </a>
@@ -86,7 +86,7 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(11,26,53,0.1
           <div class="thumb"><img src="/media/replay-jour2.webp" alt="Replay du jour 2" loading="lazy"></div>
           <div style="flex:1;display:flex;flex-direction:column;gap:10px;padding:20px 22px 24px">
             <span style="font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--blue)">Lundi 9 nov.</span>
-            <h3 style="margin:0;flex:1;font-weight:700;font-size:18px;line-height:1.35">Comment construire un portefeuille solide et performant&nbsp;?</h3>
+            <h3 style="margin:0;flex:1;font-weight:700;font-size:18px;line-height:1.35">Comment construire un portefeuille anti-crise adapté à votre profil et vos objectifs</h3>
             <p class="soon" hidden></p>
           </div>
         </a>
@@ -94,7 +94,7 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(11,26,53,0.1
           <div class="thumb"><img src="/media/replay-jour3.webp" alt="Replay du jour 3" loading="lazy"></div>
           <div style="flex:1;display:flex;flex-direction:column;gap:10px;padding:20px 22px 24px">
             <span style="font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--blue)">Mardi 10 nov.</span>
-            <h3 style="margin:0;flex:1;font-weight:700;font-size:18px;line-height:1.35">Comment gérer votre argent comme les riches (même avec 10&nbsp;000&nbsp;€)</h3>
+            <h3 style="margin:0;flex:1;font-weight:700;font-size:18px;line-height:1.35">Les 10 secrets des plus fortunés pour gérer leur argent</h3>
             <p class="soon" hidden></p>
           </div>
         </a>
@@ -132,9 +132,9 @@ window.RDV_URL = 'https://live.sinvestir.fr/consultation-strategique';
 <script>
 (function(){
   var DAYS = [
-    { titre: 'Les règles d’or pour réussir en Bourse (avec Matthias Baccino)', dispo: 'Disponible après le live du dim. 8' },
-    { titre: 'Comment construire un portefeuille solide et performant ?', dispo: 'Disponible après le live du lun. 9' },
-    { titre: 'Comment gérer votre argent comme les riches (même avec 10 000 €)', dispo: 'Disponible après le live du mar. 10' }
+    { titre: 'Bien investir en Bourse\u00a0: les règles à respecter que personne ne vous a jamais expliquées', dispo: 'Disponible après le live du dim. 8' },
+    { titre: 'Comment construire un portefeuille anti-crise adapté à votre profil et vos objectifs', dispo: 'Disponible après le live du lun. 9' },
+    { titre: 'Les 10 secrets des plus fortunés pour gérer leur argent', dispo: 'Disponible après le live du mar. 10' }
   ];
   var V = window.REPLAY_VIDEOS || {};
   // dernier replay publié : heure passée ET lien renseigné (0 = aucun encore)
