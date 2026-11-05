@@ -52,8 +52,12 @@ def variant(html, letter, consent, dark):
 
 a = inner(os.path.join(SRC, 'Last_version__1_.html'))
 c = inner(os.path.join(SRC, 'LP_2__1_.html'))
-# C/D : programme du jour 3 (texte validé par Adrien le 05/11)
+# C/D : programme des jours 1 et 3 (textes validés par Adrien le 05/11)
 for _old, _new in [
+    ('Les 4 décisions clés pour faire travailler votre argent intelligemment dès&nbsp;2027',
+     'Bien investir en Bourse&nbsp;: les règles à respecter que personne ne vous a jamais expliquées'),
+    ('Les 3 erreurs qui m’ont coûté cher… et que vous commettez peut-être déjà. Ce que votre argent peut devenir en 15&nbsp;ans, et les 4 principes que j’applique à mon propre patrimoine.',
+     'Que vous soyez débutant ou que vous ayez déjà investi, vous repartirez avec une vision claire&nbsp;: où sont les vrais risques, pourquoi tout se joue avant 2027, et comment bâtir une stratégie solide.'),
     ('Psychologie de l’argent&nbsp;: les biais qui sabotent vos placements (et comment les déjouer)',
      'Les 10 secrets des plus fortunés pour gérer leur argent'),
     ('Les bons réflexes pour garder le cap, profiter du potentiel du long terme et transmettre une vraie éducation financière à vos enfants. Format 100&nbsp;% interactif.',
