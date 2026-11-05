@@ -3,7 +3,7 @@
   "trailingSlash": false,
   "headers": [
     {
-      "source": "/(a|b|c|d|ga|merci|desinscription)(.*)",
+      "source": "/(a|b|c|d|ga|merci|desinscription|replay|confirmation-appel-decouverte)(.*)",
       "headers": [
         {
           "key": "X-Robots-Tag",

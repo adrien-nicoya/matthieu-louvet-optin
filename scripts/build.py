@@ -181,3 +181,12 @@ assert '{{' not in _desabo
 os.makedirs(os.path.join(OUT, 'desinscription'), exist_ok=True)
 open(os.path.join(OUT, 'desinscription', 'index.html'), 'w', encoding='utf-8').write(_desabo)
 print('desinscription', len(_desabo))
+
+# Pages /replay et /confirmation-appel-decouverte : src/<page>.html + logo + PostHog + pixel Meta (PageView)
+for _name in ('replay', 'confirmation-appel-decouverte'):
+    _h = open(os.path.join(_root, 'src', _name + '.html'), encoding='utf-8').read()
+    _h = _h.replace('{{LOGO}}', _logo).replace('{{HEAD}}', posthog(_name, False) + '\n' + meta_pixel(_name))
+    assert '{{' not in _h
+    os.makedirs(os.path.join(OUT, _name), exist_ok=True)
+    open(os.path.join(OUT, _name, 'index.html'), 'w', encoding='utf-8').write(_h)
+    print(_name, len(_h))

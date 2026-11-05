@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Appel découverte confirmé · S’investir</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0B1A35;--navy2:#050B16;--gold:#E2C04F;--gold2:#F5E199;--line:#E3E6EE}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--navy2);font-family:"Poppins",-apple-system,sans-serif;color:#FFFFFF;-webkit-font-smoothing:antialiased;color-scheme:dark}
+a{color:inherit}
+a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+main{min-height:calc(100vh - 200px);display:flex;align-items:center;justify-content:center;padding:56px 16px;background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(58,111,216,0.22),rgba(58,111,216,0) 70%),linear-gradient(180deg,var(--navy),var(--navy2))}
+.card{width:100%;max-width:720px;padding:52px clamp(22px,6vw,64px);border-radius:24px;text-align:center;background:linear-gradient(160deg,#16305A,var(--navy));border:1px solid rgba(226,192,79,0.35);box-shadow:0 30px 70px rgba(0,0,0,0.45)}
+.logo img{display:block;height:52px;width:auto;margin:0 auto 32px}
+.check{display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;margin-bottom:18px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);box-shadow:0 10px 26px rgba(226,192,79,0.3)}
+h1{margin:0 auto;max-width:560px;font-size:clamp(26px,3.6vw,36px);line-height:1.2;font-weight:700;text-wrap:balance}
+h1 span{color:var(--gold)}
+.steps{list-style:none;margin:34px 0 0;padding:0;display:flex;flex-direction:column;gap:12px;text-align:left}
+.steps li{display:flex;align-items:center;gap:16px;padding:16px 18px;border-radius:14px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);font-size:16px;line-height:1.5;color:#D6DCE8}
+.steps li strong{color:#FFFFFF;font-weight:600}
+.ico{flex:none;width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:rgba(226,192,79,0.14);color:var(--gold)}
+footer{background:#EEF0F3;color:#8A92A3;border-top:1px solid var(--line);padding:40px 16px}
+footer .in{max-width:1000px;margin:0 auto;display:flex;flex-direction:column;gap:16px;align-items:center;text-align:center}
+footer img{display:block;height:44px;width:auto}
+footer p{margin:0;font-size:12.5px;line-height:1.65;max-width:720px}
+footer nav a{color:#6B7387;text-decoration:none;font-size:14px}
+</style>
+{{HEAD}}
+</head>
+<body>
+<main>
+  <section class="card">
+    <div class="logo"><img src="data:image/svg+xml;base64,{{LOGO}}" alt="S’investir"></div>
+    <div class="check" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+    <h1>Félicitations, votre <span>appel découverte</span> est réservé&nbsp;!</h1>
+    <ul class="steps">
+      <li><span class="ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span><span>Une <strong>invitation a été envoyée dans votre agenda</strong>.</span></li>
+      <li><span class="ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 6.5l8.5 6 8.5-6"/></svg></span><span>Vous avez reçu un <strong>email de confirmation</strong>.</span></li>
+      <li><span class="ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 15.5a2 2 0 0 1-2 2H8l-4 3.5V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2z"/><path d="M8.5 9.5h7M8.5 12.5h4.5"/></svg></span><span>Une question&nbsp;? Contactez le <strong>référent pédagogique</strong> qui vous a été assigné.</span></li>
+    </ul>
+  </section>
+</main>
+<footer>
+  <div class="in">
+    <img src="data:image/svg+xml;base64,{{LOGO}}" alt="S’investir">
+    <p>Ce site ne fait pas partie du site YouTube™, Google™, Facebook™, Google Inc. ou Facebook Inc. et n’est approuvé par aucun d’entre eux. Service proposé par S’investir.</p>
+    <nav><a href="https://sinvestir.fr/politique-de-confidentialite/" target="_blank" rel="noopener">Politique de confidentialité</a></nav>
+    <p>Copyright © 2026 S’investir. Tous droits réservés.</p>
+  </div>
+</footer>
+</body>
+</html>
