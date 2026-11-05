@@ -176,6 +176,11 @@ for k, v in pages.items():
     v = wording(v)
     if k in ('a', 'c'):
         v = countdown_bar(v)
+    if k == 'a':
+        # ancien compte à rebours sous le formulaire retiré (doublon du bandeau) + son script
+        v, n1 = re.subn(r'\n    <div class="cd" style="max-width:560px;margin:32px auto 0;[\s\S]*?\n      </div>\n    </div>\n', '\n', v, count=1)
+        v, n2 = re.subn(r"  // Dimanche 8 novembre 2026, 20h heure de Paris[^\n]*\n  var T = [^\n]*\n  function tick\(\)\{[\s\S]*?tick\(\); setInterval\(tick, 1000\);\n", '', v, count=1)
+        assert n1 == 1 and n2 == 1 and 'cd-d' not in v
     v = logo_size(v)
     assert v.count('</head>') == 1
     v = v.replace('</head>', meta_pixel(k) + '</head>')
