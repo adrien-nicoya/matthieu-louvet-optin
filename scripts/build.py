@@ -165,8 +165,17 @@ def logo_size(html):
     html = html.replace('.logo img{display:block;height:72px;width:auto}', '.logo img{display:block;height:52px;width:auto}')
     return re.sub(r'footer \.logo img\{height:\d+px\}', 'footer .logo img{height:44px}', html)
 
+# Bandeau compte à rebours fixé en haut (A et C) ; sur A il remplace le bandeau « Du 8 au 10 novembre 2026 »
+_CDBAR = open(os.path.join(os.path.dirname(__file__), '..', 'src', 'cdbar.html'), encoding='utf-8').read()
+def countdown_bar(html):
+    html = re.sub(r'\n  <div data-screen-label="00 Bandeau"[\s\S]*?</div>\n', '\n', html, count=1)
+    assert html.count('<main style="overflow-x:hidden">') == 1
+    return html.replace('<main style="overflow-x:hidden">', _CDBAR + '\n<main style="overflow-x:hidden">')
+
 for k, v in pages.items():
     v = wording(v)
+    if k in ('a', 'c'):
+        v = countdown_bar(v)
     v = logo_size(v)
     assert v.count('</head>') == 1
     v = v.replace('</head>', meta_pixel(k) + '</head>')

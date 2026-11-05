@@ -1,0 +1,40 @@
+<!-- Bandeau compte à rebours (pages A et C) — masqué au début du challenge -->
+<style>
+.cdbar{position:sticky;top:0;z-index:60;background:var(--navy2);border-bottom:1px solid rgba(226,192,79,0.35);color:#FFFFFF;box-shadow:0 6px 20px rgba(0,0,0,0.25)}
+.cdbar-in{max-width:1160px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;justify-content:center;gap:clamp(12px,2.4vw,28px)}
+.cdbar-lbl{font-size:15px;font-weight:600;line-height:1.25}
+.cdbar-lbl b{color:var(--gold);font-weight:700}
+.cdbar-t{display:flex;align-items:center;gap:6px}
+.cdbar-u{display:flex;flex-direction:column;align-items:center;min-width:52px;padding:6px 6px 5px;border-radius:8px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12)}
+.cdbar-u span{font-weight:700;font-size:22px;line-height:1;color:var(--gold);font-variant-numeric:tabular-nums}
+.cdbar-u small{margin-top:3px;font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#AEB6C8}
+.cdbar-sep{font-weight:700;color:rgba(226,192,79,0.6);font-size:18px}
+.cdbar-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:8px;background:linear-gradient(90deg,var(--gold),var(--gold2));color:var(--navy);font-weight:700;font-size:14px;text-decoration:none;white-space:nowrap}
+@media (max-width:767px){.cdbar-in{padding:8px 12px;gap:10px}.cdbar-lbl{font-size:12.5px;max-width:110px}.cdbar-btn{display:none}.cdbar-u{min-width:42px;padding:5px 4px 4px}.cdbar-u span{font-size:18px}.cdbar-u small{font-size:9px}.cdbar-sep{display:none}}
+</style>
+<div class="cdbar" role="timer" aria-label="Compte à rebours avant le début du challenge">
+  <div class="cdbar-in">
+    <span class="cdbar-lbl">Le challenge commence dans</span>
+    <div class="cdbar-t">
+      <div class="cdbar-u"><span data-cdb="d">00</span><small>jours</small></div><span class="cdbar-sep">:</span>
+      <div class="cdbar-u"><span data-cdb="h">00</span><small>heures</small></div><span class="cdbar-sep">:</span>
+      <div class="cdbar-u"><span data-cdb="m">00</span><small>min</small></div><span class="cdbar-sep">:</span>
+      <div class="cdbar-u"><span data-cdb="s">00</span><small>sec</small></div>
+    </div>
+    <a class="cdbar-btn" href="#" data-cdb-go>Je réserve ma place <span aria-hidden="true">→</span></a>
+  </div>
+</div>
+<script>
+(function(){
+  var END = new Date('2026-11-08T20:00:00+01:00').getTime();
+  function pad(n){ return (n < 10 ? '0' : '') + n; }
+  function tick(){
+    var t = Math.max(0, Math.floor((END - Date.now()) / 1000));
+    if (t === 0) { document.querySelectorAll('.cdbar').forEach(function(b){ b.style.display = 'none'; }); return; }
+    var v = { d: Math.floor(t / 86400), h: Math.floor(t % 86400 / 3600), m: Math.floor(t % 3600 / 60), s: t % 60 };
+    for (var k in v) document.querySelectorAll('[data-cdb="' + k + '"]').forEach(function(e){ e.textContent = pad(v[k]); });
+  }
+  tick(); setInterval(tick, 1000);
+  document.querySelectorAll('[data-cdb-go]').forEach(function(a){ a.addEventListener('click', function(e){ e.preventDefault(); var f = document.querySelector('form'); if (f) f.scrollIntoView({ behavior: 'smooth', block: 'center' }); }); });
+})();
+</script>
