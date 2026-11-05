@@ -143,7 +143,7 @@ PIXEL = '1064532439969125'
 def meta_pixel(page):
     event = 'Contact' if page == 'merci' else 'PageView'
     # page de confirmation d'appel : PageView + Schedule (rendez-vous pris)
-    extra = "fbq('track', 'Schedule');\n" if page == 'confirmation-appel-decouverte' else ''
+    extra = "fbq('track', 'Schedule');\n" if page == 'confirmation-consultation-strategique' else ''
     inits = "fbq('init', '%s');\n" % PIXEL
     ids = [PIXEL]
     noscript = ''.join('<noscript><img height="1" width="1" style="display:none"\nsrc="https://www.facebook.com/tr?id=%s&ev=PageView&noscript=1"\n/></noscript>\n' % i for i in ids)
@@ -184,8 +184,8 @@ os.makedirs(os.path.join(OUT, 'desinscription'), exist_ok=True)
 open(os.path.join(OUT, 'desinscription', 'index.html'), 'w', encoding='utf-8').write(_desabo)
 print('desinscription', len(_desabo))
 
-# Pages /replay et /confirmation-appel-decouverte : src/<page>.html + logo + PostHog + pixel Meta (PageView)
-for _name in ('replay', 'confirmation-appel-decouverte'):
+# Pages /replay et /confirmation-consultation-strategique : src/<page>.html + logo + PostHog + pixel Meta (PageView)
+for _name in ('replay', 'confirmation-consultation-strategique'):
     _h = open(os.path.join(_root, 'src', _name + '.html'), encoding='utf-8').read()
     _h = _h.replace('{{LOGO}}', _logo).replace('{{HEAD}}', posthog(_name, False) + '\n' + meta_pixel(_name))
     assert '{{' not in _h
