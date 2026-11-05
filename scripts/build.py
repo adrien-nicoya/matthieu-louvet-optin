@@ -52,6 +52,14 @@ def variant(html, letter, consent, dark):
 
 a = inner(os.path.join(SRC, 'Last_version__1_.html'))
 c = inner(os.path.join(SRC, 'LP_2__1_.html'))
+# C/D : programme du jour 3 (texte validé par Adrien le 05/11)
+for _old, _new in [
+    ('Psychologie de l’argent&nbsp;: les biais qui sabotent vos placements (et comment les déjouer)',
+     'Les 10 secrets des plus fortunés pour gérer leur argent'),
+    ('Les bons réflexes pour garder le cap, profiter du potentiel du long terme et transmettre une vraie éducation financière à vos enfants. Format 100&nbsp;% interactif.',
+     'Payer moins d’impôts, toucher des revenus passifs, transmettre&nbsp;: ce qu’ils font, et comment vous en inspirer, dès 10&nbsp;000&nbsp;€.')]:
+    assert c.count(_old) == 1, _old
+    c = c.replace(_old, _new)
 # C/D : portrait studio de Matthieu dans la carte intervenant (assets/matthieu-portrait.webp)
 import base64
 _portrait = base64.b64encode(open(os.path.join(os.path.dirname(__file__), '..', 'assets', 'matthieu-portrait.webp'), 'rb').read()).decode()
