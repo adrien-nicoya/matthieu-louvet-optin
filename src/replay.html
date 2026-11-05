@@ -22,6 +22,7 @@ footer .logo img{height:44px}
 .cta:hover{filter:brightness(1.05);transform:translateY(-1px)}
 .player{position:relative;width:100%;aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:#000;box-shadow:0 30px 60px rgba(0,0,0,0.4);border:1px solid rgba(226,192,79,0.35)}
 .player img,.player video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.wait{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:9999px;background:rgba(5,11,22,0.85);border:1px solid rgba(226,192,79,0.5);color:#FFFFFF;font-size:15px;font-weight:600;white-space:nowrap}
 .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:88px;height:88px;border-radius:50%;border:0;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(0,0,0,0.4);cursor:pointer}
 .play span{width:0;height:0;border-left:26px solid var(--navy);border-top:16px solid transparent;border-bottom:16px solid transparent;margin-left:7px}
 .stats{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
@@ -29,11 +30,11 @@ footer .logo img{height:44px}
 .card{background:#FFFFFF;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 14px 34px rgba(11,26,53,0.08);display:flex;flex-direction:column;text-decoration:none;color:inherit;transition:transform .2s ease,box-shadow .2s ease}
 a.card:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(11,26,53,0.14)}
 .card.current{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold),0 14px 34px rgba(11,26,53,0.1)}
-.thumb{position:relative;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse 70% 80% at 30% 20%,rgba(58,111,216,0.35),rgba(58,111,216,0) 70%),linear-gradient(150deg,#16305A,var(--navy2))}
-.thumb b{font-size:clamp(28px,3vw,38px);font-weight:700;color:var(--gold);letter-spacing:-0.01em}
-.mini{position:absolute;right:16px;bottom:14px;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center}
+.thumb{position:relative;aspect-ratio:16/9;background:var(--navy2);overflow:hidden}
+.thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.mini{position:absolute;z-index:1;right:16px;bottom:14px;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center}
 .mini span{width:0;height:0;border-left:14px solid var(--navy);border-top:9px solid transparent;border-bottom:9px solid transparent;margin-left:4px}
-.card.locked .thumb{filter:grayscale(1) brightness(0.8)}
+.card.locked .thumb img{filter:grayscale(1) brightness(0.55)}
 .card.locked .mini{display:none}
 .soon{margin:0;display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--muted)}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.cta,.card{transition:none}}
@@ -54,10 +55,9 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(11,26,53,0.1
 
       <!-- LECTEUR : rempli automatiquement depuis REPLAY_VIDEOS (en bas de page) -->
       <div class="player" style="margin-top:10px" data-video-embed>
-        <img src="/media/merci-v2-poster.jpg" alt="">
-        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,11,22,0.1) 40%,rgba(5,11,22,0.7) 100%)"></div>
-        <span class="play" aria-hidden="true"><span></span></span>
-        <span style="position:absolute;left:24px;bottom:20px;color:#FFFFFF;font-weight:600;font-size:15px;text-align:left" data-day-caption>Le replay sera disponible ici après le live</span>
+        <img src="/media/replay-jour1.webp" alt="" data-day-poster>
+        <div style="position:absolute;inset:0;background:rgba(5,11,22,0.35)"></div>
+        <span class="wait" data-day-wait><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9.5" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span>Disponible après le live du dim. 8</span></span>
       </div>
 
       <div class="stats" style="margin-top:6px">
@@ -75,7 +75,7 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(11,26,53,0.1
       <h2 style="margin:0;font-weight:700;font-size:clamp(28px,3.6vw,42px);line-height:1.12;letter-spacing:-0.02em">Les 3 jours du challenge</h2>
       <div class="days">
         <a class="card" data-card="1" href="?jour=1">
-          <div class="thumb"><b>Jour 1</b><span class="mini" aria-hidden="true"><span></span></span></div>
+          <div class="thumb"><img src="/media/replay-jour1.webp" alt="Replay du jour 1" loading="lazy"></div>
           <div style="flex:1;display:flex;flex-direction:column;gap:10px;padding:20px 22px 24px">
             <span style="font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--blue)">Dimanche 8 nov.</span>
             <h3 style="margin:0;flex:1;font-weight:700;font-size:18px;line-height:1.35">Les règles d’or pour réussir en Bourse (avec Matthias Baccino)</h3>
@@ -83,7 +83,7 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(11,26,53,0.1
           </div>
         </a>
         <a class="card" data-card="2" href="?jour=2">
-          <div class="thumb"><b>Jour 2</b><span class="mini" aria-hidden="true"><span></span></span></div>
+          <div class="thumb"><img src="/media/replay-jour2.webp" alt="Replay du jour 2" loading="lazy"></div>
           <div style="flex:1;display:flex;flex-direction:column;gap:10px;padding:20px 22px 24px">
             <span style="font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--blue)">Lundi 9 nov.</span>
             <h3 style="margin:0;flex:1;font-weight:700;font-size:18px;line-height:1.35">Comment construire un portefeuille solide et performant&nbsp;?</h3>
@@ -91,7 +91,7 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(11,26,53,0.1
           </div>
         </a>
         <a class="card" data-card="3" href="?jour=3">
-          <div class="thumb"><b>Jour 3</b><span class="mini" aria-hidden="true"><span></span></span></div>
+          <div class="thumb"><img src="/media/replay-jour3.webp" alt="Replay du jour 3" loading="lazy"></div>
           <div style="flex:1;display:flex;flex-direction:column;gap:10px;padding:20px 22px 24px">
             <span style="font-size:13px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--blue)">Mardi 10 nov.</span>
             <h3 style="margin:0;flex:1;font-weight:700;font-size:18px;line-height:1.35">Comment gérer votre argent comme les riches (même avec 10&nbsp;000&nbsp;€)</h3>
@@ -146,6 +146,8 @@ window.RDV_URL = '';
   document.querySelectorAll('[data-day-title]').forEach(function(e){ e.textContent = 'jour ' + n; });
   document.querySelectorAll('[data-day-sub]').forEach(function(e){ e.textContent = DAYS[n-1].titre; });
   document.title = 'Replay du jour ' + n + ' · Challenge S’investir';
+  document.querySelectorAll('[data-day-wait] span').forEach(function(e){ e.textContent = DAYS[n-1].dispo; });
+  document.querySelectorAll('[data-day-poster]').forEach(function(e){ e.src = '/media/replay-jour' + n + '.webp'; });
 
   var vid = last ? V[n] : '';
   if (vid) {
@@ -153,7 +155,7 @@ window.RDV_URL = '';
     var yt = vid.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|live\/))([\w-]{11})/);
     var vm = vid.match(/vimeo\.com\/(?:video\/)?(\d+)/);
     if (/\.mp4(\?|$)/i.test(vid)) {
-      pl.innerHTML = '<video src="' + vid + '" controls playsinline preload="metadata" poster="/media/merci-v2-poster.jpg" controlslist="nodownload" style="background:#000;object-fit:contain"></video>';
+      pl.innerHTML = '<video src="' + vid + '" controls playsinline preload="metadata" poster="/media/replay-jour' + n + '.webp" controlslist="nodownload" style="background:#000;object-fit:contain"></video>';
     } else {
       if (yt) src = 'https://www.youtube.com/embed/' + yt[1] + '?rel=0&playsinline=1';
       else if (vm) src = 'https://player.vimeo.com/video/' + vm[1];
