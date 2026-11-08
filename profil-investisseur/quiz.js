@@ -35,12 +35,18 @@ const questions = [
   {
     id: "experience",
     topic: "Vos placements",
-    title: "Avez-vous déjà investi ?",
+    title: "Où avez-vous déjà placé votre argent ?",
+    help: "Plusieurs réponses possibles. Ne comptez pas votre résidence principale.",
+    multiple: true,
     options: [
-      { label: "Je n’ai encore aucun placement" },
-      { label: "J’ai uniquement de l’épargne sur des livrets" },
-      { label: "Oui, par exemple en actions, en ETF ou en immobilier" },
-      { label: "Je préfère passer" },
+      { id: "cash", label: "Livrets" },
+      { id: "av", label: "Assurance-vie" },
+      { id: "stocks", label: "PEA ou compte-titres" },
+      { id: "per", label: "PER" },
+      { id: "property", label: "Immobilier locatif ou SCPI" },
+      { id: "other", label: "Autres placements" },
+      { id: "none", label: "Aucun placement", exclusive: true },
+      { id: "skip", label: "Je préfère ne pas répondre", exclusive: true },
     ],
   },
   {
@@ -240,6 +246,10 @@ const analysisStages = [
   "Calcul de votre profil…",
 ];
 
+function frenchTypography(text) {
+  return text.replace(/ +([?!:;])/gu, "\u00a0$1");
+}
+
 function selectedOption(id, responses) {
   return questionById[id].options[responses[id]];
 }
@@ -268,7 +278,6 @@ const sceneCaption = document.getElementById("scene-caption");
 const sceneTiles = document.getElementById("scene-tiles");
 const mobileContext = document.getElementById("mobile-context");
 const answerList = document.getElementById("answers");
-const dossier = document.getElementById("dossier");
 const stepCount = document.getElementById("step-count");
 const stepTopic = document.getElementById("step-topic");
 const progress = document.getElementById("progress");
@@ -332,34 +341,6 @@ function focusScreen(heading) {
   heading.focus({ preventScroll: true });
 }
 
-function updateDossier(steps) {
-  const entries = steps.map((question, index) => {
-    const entry = document.createElement("div");
-    entry.className = "dossier-entry";
-    if (index === step) entry.setAttribute("aria-current", "step");
-
-    const title = document.createElement("dt");
-    title.textContent = question.topic;
-    const response = document.createElement("dd");
-    if (index < step) {
-      if (question === firstNameQuestion) {
-        response.textContent = firstName;
-      } else if (question.id === "goals") {
-        response.textContent = goalsInOrder().map(option => option.label).join(" · ");
-      } else if (question.id === "project") {
-        response.textContent = priorityGoal.label;
-      } else if (question.reveal) {
-        response.textContent = question.reveal.summary;
-      } else {
-        response.textContent = selectedOption(question.id, responses).label;
-      }
-    }
-    entry.append(title, response);
-    return entry;
-  });
-  dossier.replaceChildren(...entries);
-}
-
 function showStepDetails(steps) {
   const question = steps[step];
   stepCount.textContent = "Étape " + (step + 1) + " sur " + steps.length;
@@ -369,12 +350,12 @@ function showStepDetails(steps) {
   mobileContext.textContent = priorityGoal && profileQuestions.includes(question) ? priorityGoal.label : "Quiz investisseur";
   progress.max = steps.length;
   progress.value = step;
-  updateDossier(steps);
 }
 
 function isSelected(question, option, choiceIndex) {
   if (question.id === "goals") return selectedGoals.has(option);
   if (question.id === "project") return priorityGoal === option;
+  if (question.multiple) return (responses[question.id] ?? []).includes(choiceIndex);
   return (question.reveal ? declicAnswers : responses)[question.id] === choiceIndex;
 }
 
@@ -434,10 +415,10 @@ function showQuestion(index) {
   const steps = currentSteps();
   const question = steps[index];
   const asksName = question === firstNameQuestion;
-  const multiple = question.id === "goals";
+  const multiple = question.id === "goals" || question.multiple === true;
 
   showStepDetails(steps);
-  questionTitle.textContent = question.title;
+  questionTitle.textContent = frenchTypography(question.title);
   firstNameForm.hidden = !asksName;
   answerList.hidden = asksName;
   if (asksName) {
@@ -460,7 +441,7 @@ function showQuestion(index) {
   answerInstruction.hidden = !question.reveal;
   continueButton.type = asksName ? "submit" : "button";
   continueButton.hidden = !asksName && !multiple;
-  continueButton.disabled = multiple && selectedGoals.size === 0;
+  continueButton.disabled = multiple && (question.id === "goals" ? selectedGoals.size === 0 : !(responses[question.id]?.length));
 
   const buttons = (question.options ?? []).map((option, choiceIndex) => {
     const button = document.createElement("button");
@@ -531,6 +512,24 @@ function chooseAnswer(choiceIndex) {
     return;
   }
 
+  if (question.multiple) {
+    const selection = new Set(responses[question.id] ?? []);
+    if (selection.has(choiceIndex)) selection.delete(choiceIndex);
+    else {
+      if (option.exclusive) selection.clear();
+      else for (const index of selection) if (question.options[index].exclusive) selection.delete(index);
+      selection.add(choiceIndex);
+    }
+    for (const nextQuestion of currentSteps().slice(step + 1)) delete responses[nextQuestion.id];
+    responses[question.id] = [...selection].sort((a, b) => a - b);
+    for (const [index, choice] of Array.from(answerList.children).entries()) {
+      choice.setAttribute("aria-pressed", String(selection.has(index)));
+    }
+    continueButton.disabled = selection.size === 0;
+    showStepDetails(currentSteps());
+    return;
+  }
+
   if (question.reveal) {
     if (declicAnswers[question.id] !== undefined) return;
     declicAnswers[question.id] = choiceIndex;
@@ -571,7 +570,7 @@ function renderAnswerReview() {
     const correct = question.options.find(option => option.correct);
     const item = document.createElement("li");
     const heading = document.createElement("h3");
-    heading.textContent = question.title;
+    heading.textContent = frenchTypography(question.title);
     item.append(heading);
 
     if (question.sceneCaption || question.scene) {
@@ -611,7 +610,6 @@ function prepareResult() {
   const earnedPoints = correctCount * 4;
   const maxPoints = total * 4;
   const scoreCaption = correctCount + (correctCount === 1 ? " bonne réponse" : " bonnes réponses") + " sur " + total + " au premier essai.";
-  const justGettingStarted = responses.experience === 0 || responses.experience === 1;
   currentResult = {
     ...assessProfile(responses),
     firstName,
@@ -619,9 +617,7 @@ function prepareResult() {
     otherGoals: goalsInOrder().filter(option => option !== priorityGoal).map(option => option.label),
     intuition: profiles[responses.intuition],
     horizon: selectedOption("horizon", responses).label,
-    liveNext: justGettingStarted
-      ? "Rendez-vous le 9 novembre pour voir, sur un portefeuille d’exemple, ce que votre profil change dans vos choix de placement."
-      : "Rendez-vous le 9 novembre pour voir comment utiliser votre profil pour relire un portefeuille.",
+    liveNext: "Gardez votre fiche pour la suite du Challenge. Elle vous servira de repère pendant les lives et de point de départ pour approfondir votre situation lors de votre appel diagnostic.",
     disclaimer,
   };
   document.getElementById("capture-first-name").textContent = currentResult.firstName;
@@ -640,7 +636,7 @@ function prepareResult() {
   document.getElementById("capture-details").textContent = "Horizon · " + currentResult.horizon;
   for (const id of ["qi-gauge", "capture-gauge"]) {
     const gauge = document.getElementById(id);
-    gauge.style.setProperty("--qi-fill", (earnedPoints / maxPoints * 100) + "%");
+    gauge.querySelector(".score-arc").setAttribute("stroke-dasharray", (earnedPoints / maxPoints * 100) + " 100");
     gauge.querySelector("strong").textContent = earnedPoints;
     gauge.querySelector("span").textContent = " / " + maxPoints;
   }
@@ -695,7 +691,6 @@ function showAnalysis() {
   for (const id of ["horizon", "reaction", "impact"]) {
     document.getElementById("analysis-" + id).textContent = selectedOption(id, responses).label;
   }
-  updateDossier(steps);
   mobileContext.textContent = "Quiz investisseur";
   questionScreen.hidden = true;
   analysisScreen.hidden = false;
@@ -788,7 +783,7 @@ async function preparePdf(resultToExport) {
   retryPdf.hidden = true;
   downloadStatus.textContent = "Préparation de votre fiche…";
   try {
-    const { drawProfileCard, createProfilePdf } = await import("./profile-pdf.js?v=21");
+    const { drawProfileCard, createProfilePdf } = await import("./profile-pdf.js?v=27");
     if (currentResult !== resultToExport) return;
     const card = captureImage.firstElementChild ?? await drawProfileCard(captureCard);
     if (currentResult !== resultToExport) return;

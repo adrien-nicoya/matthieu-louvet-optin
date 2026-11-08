@@ -48,7 +48,7 @@ export async function drawProfileCard(card) {
   const scoreLabel = content(".capture-score h4");
   const score = content("#capture-gauge strong");
   const scoreMax = content("#capture-gauge span");
-  const scoreFill = Number.parseFloat(card.querySelector("#capture-gauge").style.getPropertyValue("--qi-fill")) / 100;
+  const scoreFill = Number.parseFloat(card.querySelector("#capture-gauge .score-arc").getAttribute("stroke-dasharray")) / 100;
   const scoreCaption = content("#capture-score-caption");
   const next = content(".capture-next strong");
   const details = content("#capture-details");
@@ -209,16 +209,13 @@ export async function drawProfileCard(card) {
     context.fillStyle = "#101728";
     context.fill();
     context.lineWidth = 3.5;
-    context.strokeStyle = "#394353";
+    context.strokeStyle = "#364051";
     context.stroke();
     if (scoreFill > 0) {
-      const goldTone = context.createLinearGradient(gaugeX + gaugeRadius, gaugeY - gaugeRadius, gaugeX - gaugeRadius, gaugeY + gaugeRadius);
-      goldTone.addColorStop(0, gold);
-      goldTone.addColorStop(1, "#dfaf63");
       context.beginPath();
       const startAngle = scoreFill === 1 ? 0 : topAngle;
       context.arc(gaugeX, gaugeY, gaugeRadius, startAngle, startAngle + 2 * Math.PI * scoreFill);
-      context.strokeStyle = goldTone;
+      context.strokeStyle = gold;
       context.stroke();
     }
 
