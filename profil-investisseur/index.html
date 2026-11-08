@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#01040b">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Le quiz du Challenge S’investir pour découvrir votre profil d’investisseur et situer le niveau de risque qui vous correspond.">
+  <meta property="og:title" content="Quiz profil investisseur · Challenge S’investir">
+  <meta property="og:description" content="Quel est votre profil d’investisseur ? Faites le quiz du Challenge S’investir.">
+  <title>Quiz profil investisseur · Challenge S’investir</title>
+  <link rel="icon" type="image/svg+xml" href="/profil-investisseur/assets/logo-sinvestir.svg">
+  <link rel="preload" href="/profil-investisseur/assets/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/profil-investisseur/quiz.css?v=21">
+  <script src="/profil-investisseur/quiz.js?v=25" defer></script>
+</head>
+<body>
+  <main class="intro-scene" id="intro">
+    <section class="intro" aria-labelledby="intro-title">
+      <div>
+        <img class="intro-logo" src="/profil-investisseur/assets/logo-sinvestir.svg" alt="S’investir" width="50" height="50">
+        <p class="intro-event">Challenge S’investir</p>
+        <p class="intro-dates">En live les 8, 9 et 10 novembre 2026 à 20&nbsp;h.</p>
+        <h1 class="intro-title shine" id="intro-title">Quel est votre profil d’investisseur&nbsp;?</h1>
+        <p class="intro-lead">Découvrez votre niveau, identifiez votre profil d’investisseur et repartez avec votre fiche personnalisée pour aller plus loin pendant le Challenge.</p>
+        <div class="intro-actions">
+          <button class="gold-button" type="button" id="start">Commencer le quiz</button>
+          <span>Environ 4 min</span>
+        </div>
+        <p class="intro-meta"><span aria-hidden="true"></span> Votre profil et votre score à garder pour les lives</p>
+      </div>
+      <div class="preview" aria-hidden="true">
+        <div class="preview-card preview-main">
+          <div class="preview-top">
+            <span>Profil d’investisseur</span>
+            <span class="mini-pill">Votre résultat</span>
+          </div>
+          <div class="preview-body">
+            <div class="preview-ring">
+              <svg viewBox="0 0 100 100" focusable="false">
+                <defs>
+                  <linearGradient id="gold-ring" x2="1" y2="1">
+                    <stop stop-color="#f7da89"/>
+                    <stop offset="1" stop-color="#cd8a39"/>
+                  </linearGradient>
+                </defs>
+                <circle class="ring-track" cx="50" cy="50" r="44"/>
+                <circle class="ring-arc" cx="50" cy="50" r="44"/>
+              </svg>
+              <span>?</span>
+            </div>
+            <div class="preview-bars">
+              <div>Votre profil de risque <span><i></i></span></div>
+              <div>Vos connaissances en investissement <span><i></i></span></div>
+              <div>Votre fiche à garder <span><i></i></span></div>
+            </div>
+          </div>
+        </div>
+        <div class="preview-card preview-scale">
+          <p>Votre profil d’investisseur</p>
+          <div class="preview-segments"><span></span><span></span><span></span></div>
+          <div class="preview-labels"><span>Prudent</span><span>Équilibré</span><span>Dynamique</span></div>
+        </div>
+        <div class="preview-card preview-j2">
+          <strong><span></span> À garder pour la suite</strong>
+          <p>Votre fiche de profil investisseur</p>
+        </div>
+      </div>
+    </section>
+    <noscript><p class="no-script">Activez JavaScript pour répondre au quiz.</p></noscript>
+  </main>
+
+  <div class="quiz-shell" id="flow" hidden>
+    <aside class="dossier" aria-label="Récapitulatif du quiz">
+      <img src="/profil-investisseur/assets/logo-sinvestir.svg" alt="S’investir" width="52" height="52">
+      <p class="dossier-title">Votre quiz</p>
+      <dl class="dossier-list" id="dossier"></dl>
+      <div class="mobile-status">
+        <strong>Challenge S’investir</strong>
+        <span id="mobile-context">Quiz investisseur</span>
+      </div>
+    </aside>
+
+    <main class="quiz-scene">
+      <section class="quiz-column" id="question-screen" aria-labelledby="question-title">
+        <div class="step-line">
+          <strong id="step-count"></strong>
+          <span id="step-topic"></span>
+          <progress id="progress" max="10" value="0" aria-label="Questions complétées"></progress>
+        </div>
+        <h1 class="question shine" id="question-title" tabindex="-1"></h1>
+        <form class="first-name-form" id="first-name-form" hidden>
+          <label for="first-name">Votre prénom</label>
+          <input id="first-name" name="given-name" type="text" autocomplete="given-name" autocapitalize="words" maxlength="48" dir="auto" required>
+        </form>
+        <p class="question-help" id="question-help" hidden></p>
+        <div class="question-scene" id="question-scene" role="group" aria-label="Situation du mini-défi" hidden>
+          <p class="scene-caption" id="scene-caption" hidden></p>
+          <div class="scene-tiles" id="scene-tiles"></div>
+        </div>
+        <p class="answer-instruction" id="answer-instruction" hidden>À vous de jouer. Un essai par défi.</p>
+        <div class="answers" id="answers" role="group" aria-labelledby="question-title" aria-describedby="question-help"></div>
+        <div class="feedback" id="feedback" hidden>
+          <div class="feedback-speaker">
+            <span class="feedback-photo">
+              <img class="feedback-portrait" src="/profil-investisseur/assets/matthieu-louvet.jpg" alt="" width="60" height="60" loading="lazy">
+            </span>
+            <div>
+              <p class="feedback-kicker">S’investir</p>
+              <p class="feedback-name">Matthieu Louvet</p>
+            </div>
+            <span class="feedback-lock">Réponse validée</span>
+          </div>
+          <h2 id="feedback-title" tabindex="-1"></h2>
+          <p id="feedback-body"></p>
+        </div>
+        <div class="question-actions">
+          <button class="text-button" type="button" id="back"><span aria-hidden="true">←</span> Retour</button>
+          <button class="gold-button" type="button" form="first-name-form" id="continue" hidden>Continuer</button>
+        </div>
+      </section>
+
+      <section class="quiz-column analysis-screen" id="analysis-screen" aria-labelledby="analysis-title" hidden>
+        <div class="analysis-panel">
+          <div class="analysis-header">
+            <div class="analysis-radar" aria-hidden="true">
+              <svg viewBox="0 0 96 96" fill="none">
+                <circle cx="48" cy="48" r="46"/>
+                <circle cx="48" cy="48" r="33"/>
+                <circle cx="48" cy="48" r="19"/>
+                <path d="M48 2v92M2 48h92"/>
+                <circle class="radar-point" cx="32" cy="24" r="2.5"/>
+                <circle class="radar-point" cx="67" cy="39" r="2.5"/>
+                <circle class="radar-point" cx="53" cy="74" r="2.5"/>
+                <circle class="radar-point" cx="48" cy="48" r="3"/>
+              </svg>
+            </div>
+            <div class="analysis-heading">
+              <p class="next-label">Analyse du profil</p>
+              <h1 class="question shine" id="analysis-title" tabindex="-1">Votre profil prend forme</h1>
+              <p class="analysis-status" id="analysis-status" role="status"></p>
+            </div>
+          </div>
+          <div class="analysis-meter">
+            <progress id="analysis-progress" max="100" value="0" aria-label="Progression de l’analyse"></progress>
+            <span id="analysis-percent" aria-hidden="true">0 %</span>
+          </div>
+          <dl class="analysis-factors" id="analysis-factors">
+            <div><dt>Votre horizon</dt><dd id="analysis-horizon"></dd></div>
+            <div><dt>Face à une baisse</dt><dd id="analysis-reaction"></dd></div>
+            <div><dt>En cas d’imprévu</dt><dd id="analysis-impact"></dd></div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="quiz-column result" id="result-screen" aria-labelledby="result-title" hidden>
+        <div class="step-line result-step">
+          <strong>Quiz terminé</strong>
+          <span>Votre profil</span>
+          <progress max="1" value="1" aria-label="Quiz terminé"></progress>
+        </div>
+        <div class="result-card">
+          <p class="pill" id="result-kicker">Votre profil indicatif</p>
+          <p class="result-greeting"><bdi id="result-first-name"></bdi>, voici votre profil.</p>
+          <h1 class="result-title shine" id="result-title" tabindex="-1"></h1>
+          <p class="initial-profile" id="initial-profile" hidden>Votre intuition au départ · <strong id="initial-profile-value"></strong></p>
+          <div class="risk-scale" id="risk-scale" aria-hidden="true">
+            <span>Prudent</span><span>Équilibré</span><span>Dynamique</span>
+          </div>
+        </div>
+
+        <section class="result-panel result-goals" aria-labelledby="result-goals-title">
+          <div class="result-panel-heading">
+            <svg class="result-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path id="goal-icon-path" d="M20.5 11.5a8.5 8.5 0 1 1-8-8 M16.5 12a4.5 4.5 0 1 1-4.5-4.5m0 4.5 7-7m-3 0h3v3"/>
+            </svg>
+            <h2 id="result-goals-title">Vos objectifs</h2>
+          </div>
+          <div class="primary-objective">
+            <p class="objective-label">Objectif principal</p>
+            <p class="result-project" id="result-project"></p>
+          </div>
+          <div class="other-goals" id="other-goals" hidden>
+            <h3 class="objective-label">Vos autres objectifs</h3>
+            <ul id="goal-list"></ul>
+          </div>
+        </section>
+
+        <section class="result-panel result-learning" aria-labelledby="qi-title">
+          <div class="score-panel">
+            <div class="score-copy">
+              <p class="next-label">Vos connaissances</p>
+              <h2 id="qi-title">Score Investisseur</h2>
+              <p id="score-caption"></p>
+            </div>
+            <p class="score-gauge" id="qi-gauge">
+              <strong id="qi-score"></strong><span id="qi-score-max"></span>
+            </p>
+          </div>
+          <details class="answer-review" id="answer-review">
+            <summary>Revoir mes réponses</summary>
+            <ol id="review-items"></ol>
+          </details>
+        </section>
+
+        <section class="result-panel save-profile" aria-labelledby="save-title">
+          <div class="result-panel-heading">
+            <svg class="result-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 4h7l4 4v11H8zM15 4v4h4M5 8v13h10M11 12h5m-5 3h5"/>
+            </svg>
+            <div>
+              <h2 id="save-title">Gardez votre profil pour la suite</h2>
+              <p>Téléchargez votre carte ou gardez-la en capture d’écran.</p>
+            </div>
+          </div>
+          <div class="result-actions">
+            <a class="gold-button" id="download-pdf" download="ma-fiche-investisseur-sinvestir.pdf" hidden>Télécharger ma fiche PDF</a>
+            <button class="outline-button" type="button" id="capture-profile">Afficher ma carte à capturer</button>
+          </div>
+          <div class="download-feedback">
+            <p id="download-status" role="status"></p>
+            <button id="retry-pdf" class="text-button" type="button" hidden>Réessayer</button>
+            <button id="print-profile" class="text-button" type="button">Imprimer ou enregistrer en PDF</button>
+          </div>
+        </section>
+
+        <section class="result-panel live-reminder" aria-labelledby="live-title">
+          <svg class="result-icon live-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path id="live-icon-path" d="M6 6h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z M8 4v4m8-4v4M4 10h16"/>
+          </svg>
+          <div>
+            <h2 id="live-title">On se retrouve en live</h2>
+            <p class="live-dates">Les 8, 9 et 10 novembre 2026 à 20&nbsp;h</p>
+            <p id="live-next"></p>
+          </div>
+        </section>
+
+        <button class="text-button restart-button" type="button" id="restart">Tester un autre objectif <span aria-hidden="true">→</span></button>
+        <p class="result-meta" id="result-disclaimer"></p>
+      </section>
+    </main>
+  </div>
+  <dialog class="capture-dialog" id="capture-dialog" aria-labelledby="capture-title">
+    <div class="capture-toolbar">
+      <h2 id="capture-title">Votre carte à capturer</h2>
+      <form method="dialog"><button class="text-button" type="submit">Fermer</button></form>
+    </div>
+    <div id="capture-image" class="capture-image" aria-hidden="true" hidden></div>
+    <article class="capture-card">
+      <header class="capture-brand">
+        <img src="/profil-investisseur/assets/pdf/logo-sinvestir.png" alt="" width="35" height="35">
+        <div><strong>Challenge S’investir</strong><p>Ma fiche de profil</p></div>
+      </header>
+      <p class="next-label" id="capture-kicker">Mon profil indicatif</p>
+      <p class="capture-name" id="capture-first-name" dir="auto"></p>
+      <h3 class="capture-profile shine" id="capture-label"></h3>
+      <div class="capture-goals-heading">
+        <svg class="result-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#goal-icon-path"/></svg>
+        <h4>Vos objectifs</h4>
+      </div>
+      <div class="primary-objective">
+        <p class="objective-label">Objectif principal</p>
+        <p class="capture-project" id="capture-project"></p>
+      </div>
+      <div class="other-goals" id="capture-other-goals" hidden>
+        <h4 class="objective-label">Vos autres objectifs</h4>
+        <ul></ul>
+      </div>
+      <div class="score-panel capture-score">
+        <div>
+          <p class="next-label">Vos connaissances</p>
+          <h4>Score Investisseur</h4>
+          <p id="capture-score-caption"></p>
+        </div>
+        <p class="score-gauge" id="capture-gauge"><strong></strong><span></span></p>
+      </div>
+      <div class="capture-next">
+        <svg class="result-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><use href="#live-icon-path"/></svg>
+        <p><strong>À garder pour les lives</strong><span id="capture-details"></span></p>
+      </div>
+      <p class="capture-meta">Quiz pédagogique · Profil indicatif</p>
+    </article>
+    <p class="capture-instruction">Faites une capture de cette carte pour la retrouver dans vos photos.</p>
+  </dialog>
+</body>
+</html>
